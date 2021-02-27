@@ -1,0 +1,31 @@
+<app-admin-nav></app-admin-nav>
+
+<div class="container container-fluid">
+  <table class="table">
+    <thead>
+      <tr>        
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date Of Birth</th>
+        <th>Phone Number</th>
+        <th>Branch Office</th>
+        <th>Status</th>
+        <th>Entitlement</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.firstName | titlecase}}</td>
+        <td>{{user.lastName | titlecase}}</td>
+        <td>{{user.dateOfBirth | date}}</td>
+        <td>{{user.phoneNumber}}</td>
+        <td>{{user.branchOfficeLocation}}</td>
+        <td>{{user.userStatusDesc}}</td>
+        <td>{{user.entitlementDesc}}</td>
+        <td><button class="btn btn-info btn-md" (click)="editUser(user)">
+          <span class="glyphicon glyphicon-pencil"></span> Edit 
+        </button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

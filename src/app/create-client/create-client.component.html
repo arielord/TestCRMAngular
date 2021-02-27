@@ -1,0 +1,114 @@
+<div class="container container-fluid">
+    <h3>New Client Form</h3>
+  
+    <form [formGroup]="createClientForm" (ngSubmit)="submitCreateClientForm(createClientForm)">
+  
+      <div class="input-group form-group">
+        <input type="text" formControlName="firstName" name="firstName" placeholder="First Name" [(ngModel)]="client.firstName" class="form-control" required>
+        <div class="input-group-append">
+          <span class="input-group-text">Required</span>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group ">
+          <input type="text" formControlName="middleName" name="middleName" placeholder="Middle Name" [(ngModel)]="client.middleName" class="form-control">        
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group ">
+          <input type="text" formControlName="lastName" name="lastName" placeholder="Last Name" [(ngModel)]="client.lastName" class="form-control" required>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group ">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="text" formControlName="assetValue" name="assetValue" placeholder="Asset Value" [(ngModel)]="client.assetValue" class="form-control" required>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>        
+        </div>
+        <p class="alert alert-danger" *ngIf="createClientForm.controls.assetValue.errors?.pattern">
+          Must be in 1,000.00 or 1000.00 format
+        </p>
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" formControlName="homePhoneNumber" name="homePhoneNumber" placeholder="Home Phone Number" [(ngModel)]="client.homePhoneNumber" class="form-control" required>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+        <p class="alert alert-danger" *ngIf="createClientForm.controls.homePhoneNumber.errors?.pattern || createClientForm.controls.homePhoneNumber.errors?.maxLength">
+          Must be 10 digits long, no dashes
+        </p>
+      </div>   
+  
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" formControlName="officePhoneNumber" name="officePhoneNumber" placeholder="Office Phone Number" [(ngModel)]="client.officePhoneNumber" class="form-control">      
+        </div>
+        <p class="alert alert-danger" *ngIf="createClientForm.controls.officePhoneNumber.errors?.pattern">
+          Must be 10 digits long, no dashes
+        </p>      
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" formControlName="email" name="email" placeholder="Email" [(ngModel)]="client.email" class="form-control">      
+        </div>
+        <p class="alert alert-danger" *ngIf="createClientForm.controls.email.errors?.email">
+          Must be in format of EmailId@EmailProvider.com
+        </p>
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" formControlName="driversLicenseIdNum" name="driversLicenseIdNum" placeholder="Drivers License Id Number" [(ngModel)]="client.driversLicenseIdNum" class="form-control">      
+        </div>  
+      </div>       
+  
+      <div class="form-group">
+        <div class="">
+          <label for="dateOfBirth">Date of Birth:</label>
+        </div>
+        <div class="input-group">
+          <input type="date" formControlName="dateOfBirth" id="dateOfBirth" name="dateOfBirth" placeholder="Date Of Birth" [(ngModel)]="client.dateOfBirth" class="form-control" required>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>     
+        <p class="alert alert-danger" *ngIf="createClientForm.controls.dateOfBirth.errors?.checkDate">
+          Cannot be future date
+        </p> 
+      </div>
+  
+      <div class="form-group">
+        <div class="">
+          <label for="accountStatus">Account Status:</label>
+        </div>
+        <div class="input-group">
+          <select id="accountStatus" formControlName="accountStatus" name="accountStatus" class="form-control" [(ngModel)]="client.accountStatusId" required>
+            <option *ngFor="let status of accountStatuses" [ngValue]="status.accountStatusId">{{status.accountStatusDesc}}</option>
+          </select>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <button class="btn" (click)="cancel()">Cancel</button>
+        <input type="submit" [disabled]="createClientForm.invalid" class="btn btn-primary" />
+      </div>
+    </form>
+  </div>
+  

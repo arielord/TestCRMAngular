@@ -1,0 +1,90 @@
+<div class="container container-fluid">
+    <h3>New User Form</h3>
+    <form [formGroup]="createUserForm" (ngSubmit)="submitCreateForm(createUserForm)">
+  
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" formControlName="firstName" name="firstName" placeholder="First Name" [(ngModel)]="user.firstName" class="form-control" required>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group ">
+          <input type="text" formControlName="lastName" name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName" class="form-control">
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group">
+          <input type="date" formControlName="dateOfBirth" max="{{today}}" name="dateOfBirth" placeholder="Date Of Birth" [(ngModel)]="user.dateOfBirth" class="form-control">
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+        <p class="alert alert-danger" *ngIf="createUserForm.controls.dateOfBirth.errors && createUserForm.controls.dateOfBirth.dirty">
+          Cannot use a future date
+        </p>    
+      </div>
+  
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text"formControlName="phoneNumber" name="phoneNumber" placeholder="Phone Number" [(ngModel)]="user.phoneNumber" class="form-control">
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+        <p class="alert alert-danger" *ngIf="createUserForm.controls.phoneNumber.errors?.pattern">
+          Must be 10 digits long, no dashes
+        </p>   
+      </div>
+  
+      <div class="form-group">
+        <label for="branch">Branch Office Location:</label>
+        <div class="input-group">
+          <select id="branch" formControlName="branch" name="branch" class="form-control" [(ngModel)]="user.branchOfficeLocation">
+            <option *ngFor="let branch of branchLocations" [ngValue]="branch.branchOfficeLocation">{{branch.branchOfficeLocation}}</option>
+          </select>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <div class="input-group">
+          <select id="status" formControlName="status" name="status" class="form-control" [(ngModel)]="user.userStatusDesc">
+            <option *ngFor="let status of userStatuses" [ngValue]="status.userStatusDesc">{{status.userStatusDesc}}</option>
+          </select>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>      
+      </div>
+      
+      <div class="form-group">
+        <label for="entitlement">Entitlement:</label>
+        <div class="input-group">
+          <select id="entitlement" formControlName="entitlement" name="entitlement" class="form-control" [(ngModel)]="user.entitlementDesc">                        
+            <option *ngFor="let entitlement of entitlements" [ngValue]="entitlement.entitlementDesc">{{entitlement.entitlementDesc}}</option>                
+          </select>
+          <div class="input-group-append">
+            <span class="input-group-text">Required</span>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="form-group">
+        <button class="btn" (click)="cancel()">Cancel</button>
+        <input type="submit" [disabled]="createUserForm.invalid" class="btn btn-primary" />
+      </div>
+    </form>
+  </div>
+  

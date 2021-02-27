@@ -1,0 +1,54 @@
+<app-user-nav-bar></app-user-nav-bar>
+
+<div class="container-fluid">  
+  <div class="container">
+
+    <div class="row">      
+      <div class="col-md-3" style="text-align:right">
+        <label>Search By Name:</label>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" #firstName placeholder="First Name" (input)="searchByName(firstName.value, lastName.value)" />
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" #lastName placeholder="Last Name" (input)="searchByName(firstName.value, lastName.value)" />
+      </div>          
+    </div>
+
+    <div class="row">      
+      <div class="col-md-3" style="text-align:right">
+        <label>Search By Client Id:</label>
+      </div>
+      <div class="col-md-6">
+        <input type="number" class="form-control" #clientId placeholder="Client Id" (input)="searchById(clientId.value)" />
+      </div>             
+    </div>    
+
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Date Of Birth</th>
+          <th>Asset Value</th>
+          <th>Home Phone Number</th>
+          <th>Office Phone Number</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of filteredClients">
+          <td>{{client.firstName | titlecase}}</td>
+          <td>{{client.middleName | titlecase}}</td>
+          <td>{{client.lastName | titlecase}}</td>
+          <td>{{client.dateOfBirth | date}}</td>
+          <td>{{client.assetValue | currency}}</td>
+          <td>{{client.homePhoneNumber}}</td>
+          <td>{{client.officePhoneNumber}}</td>
+          <td>{{client.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

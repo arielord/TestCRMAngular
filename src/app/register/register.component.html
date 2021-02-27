@@ -1,0 +1,111 @@
+<app-login-nav></app-login-nav>
+
+<div class="container-fluid">
+  <div class="container">
+    <h3>Registration</h3>    
+    
+    <ng-container *ngIf="user == null">
+      <small>Only authorized users may register. If you're unable to register please contact admin.</small>
+      <form #findUserForm="ngForm" (ngSubmit)="submitUserForm(findUserForm)">
+
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" #firstNameRef="ngModel" name="firstName" class="form-control" placeholder="First Name" required ngModel />
+          </div>
+          <div *ngIf="(firstNameRef.touched || firstNameRef.dirty) && firstNameRef.pristine" class="alert alert-danger">
+            <div [hidden]="!firstNameRef.errors.required">
+              <p>&nbsp;This field is required</p>
+            </div>
+          </div>
+        </div>        
+
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" #lastNameRef="ngModel" name="lastName" class="form-control" placeholder="Last Name" required ngModel />
+          </div>
+          <div *ngIf="(lastNameRef.touched || lastNameRef.dirty) && lastNameRef.pristine" class="alert alert-danger">
+            <div [hidden]="!lastNameRef.errors.required">
+              <p>&nbsp;This field is required</p>
+            </div>
+          </div>
+        </div>        
+
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" #phonenumberRef="ngModel" name="phonenumber" class="form-control" placeholder="Phonenumber" required ngModel />
+          </div>
+          <div *ngIf="(phonenumberRef.touched || phonenumberRef.dirty) && phonenumberRef.pristine" class="alert alert-danger">
+            <div [hidden]="!phonenumberRef.errors.required">
+              <p>&nbsp;This field is required</p>
+            </div>
+          </div>
+        </div>        
+
+        <div class="form-group">
+          <input type="submit" [disabled]="!findUserForm.form.valid" class="btn btn-primary" />
+        </div>
+
+      </form>
+    </ng-container>
+  
+    <ng-container *ngIf="user != null">
+      <p>Hello {{user.firstName}},</p>
+      <p>Please create a username and password</p>
+
+      <form #registerForm="ngForm" (ngSubmit)="submitRegistrationForm(registerForm)">
+
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" #usernameRef="ngModel" name="username" id="username" class="form-control" placeholder="Username" required minlength="3" maxlength="20" ngModel />
+          </div>
+          <div *ngIf="(usernameRef.touched || usernameRef.dirty) && usernameRef.errors" class="alert alert-danger">
+            <div [hidden]="!usernameRef.errors.required">
+              <p>&nbsp;This field is required</p>
+            </div>
+            <div [hidden]="!usernameRef.errors.minlength">
+              <p>&nbsp;Must be between 6 and 20 characters</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <input type="password" #passwordRef="ngModel" name="password" class="form-control" placeholder="Password" minlength="6" required ngModel />
+          </div>
+          <div *ngIf="(passwordRef.touched || passwordRef.dirty) && passwordRef.errors" class="alert alert-danger">
+            <div [hidden]="!passwordRef.errors.required">
+              <p>&nbsp;This field is required</p>
+            </div>
+            <div [hidden]="!passwordRef.errors.minlength">
+              <p>&nbsp;Must be at least 6 characters</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loginCreated" class="alert alert-danger">
+          <p class="">Username is already taken</p>
+        </div>
+
+        <!-- <div class="form-group">
+          <div class="input-group">
+            <input type="password" #confirmationRef="ngModel" name="passwordConfirmation" class="form-control" placeholder="Please Confirm Password" required ngModel />
+          </div>
+          <div *ngIf="(confirmationRef.touched || confirmationRef.dirty) && confirmationRef.pristine" class="alert alert-danger">
+            <div [hidden]="!confirmationRef.errors.required">
+              <p>&nbsp;This field is required</p>
+            </div>
+            <div [hidden]="confirmationRef == passwordRef">
+              <p>&nbsp;Does not match password</p>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="form-group">
+          <input type="submit" [disabled]="!registerForm.form.valid" class="btn btn-primary" />          
+        </div>
+
+      </form>
+    </ng-container>
+    
+  </div>
+</div>
